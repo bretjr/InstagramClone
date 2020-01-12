@@ -4,8 +4,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 class Login extends Component {
 
     login(){
-        //Navigate to the next page
-        
+        //Navigate to the main page
+        this.props.navigation.navigate('Main');
     }
 
     render(){
