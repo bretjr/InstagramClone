@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { MainFeed, Login } from './components/screens';
 // navigation imports
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
-// stack navigation
-const MainStack = createStackNavigator({
-    Login: Login,
-    Main: MainFeed
+// switch navigator mainstack
+const MainStack = createSwitchNavigator({
+    Login: { screen: Login },
+    Main: { screen: MainFeed }
 });
-
-class InstagramClone extends Component {
-
-    render() {
-        return <MainStack />;
-    }
-}
 
 export default createAppContainer(MainStack);
