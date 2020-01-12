@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
-import { MainFeed, Login } from './components/screens';
+import { MainFeed, Login, Profile, Camera } from './components/screens';
 // navigation imports
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-// switch navigator mainstack
-const MainStack = createSwitchNavigator({
-    Login: { screen: Login },
-    Main: { screen: MainFeed }
+// bottom tab navigator
+const TabStack = createBottomTabNavigator({
+    Main: { screen: MainFeed },
+    Profile: { screen: Profile },
+    Camera: { screen: Camera }
+},{
+    initialRouteName: 'Main'
 });
 
-export default createAppContainer(MainStack);
+// switch navigator
+const SwitchStack = createSwitchNavigator({
+    Login: { screen: Login },
+    Tabs: { screen: TabStack }
+},{
+    initialRouteName: 'Login'
+});
+
+export default createAppContainer(SwitchStack);

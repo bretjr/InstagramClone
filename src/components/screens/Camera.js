@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-class Login extends Component {
+class Camera extends Component {
 
     login(){
         //Navigate to the main page
-        this.props.navigation.navigate('Tabs');
+        this.props.navigation.navigate('Main');
     }
 
     render(){
@@ -19,10 +19,10 @@ class Login extends Component {
                 }}
                 onPress={() => this.login()}
            >
-                <Text>LOGIN PAGE</Text>
+                <Text>CAMERA PAGE</Text>
            </TouchableOpacity>
        )
     }
 }
 
-export default Login;
+export default Camera;
