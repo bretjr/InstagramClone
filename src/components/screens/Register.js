@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import config from '../../config';
 
 export default class Register extends Component {
 
@@ -8,7 +9,7 @@ export default class Register extends Component {
 		super();
 		this.state = {
 			credentials: {
-				login: "",
+				email: "",
 				password: ""
 			}
 		};
@@ -23,7 +24,21 @@ export default class Register extends Component {
 	}
 
 	register() {
-		alert(JSON.stringify(this.state.credentials));
+		console.log(config.baseUrl);
+		fetch(config.baseUrl + "signup", {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(this.state.credentials),
+		})
+			.then(data => {
+				alert(JSON.stringify(data))
+			})
+			.catch(err =>{
+				alert(err)
+			});
 	}
 
   render() {
@@ -38,8 +53,8 @@ export default class Register extends Component {
         <Text style={{ fontSize: 16 }}> Create New Profile </Text>
 		  <TextInput
 		  	value={this.state.login} 
-			onChangeText={text => this.updateText(text, 'login')}
-			placeholder="Username"
+			onChangeText={text => this.updateText(text, 'email')}
+			placeholder="Email"
 			autoCorrect={false} 
 			style={styles.input}
         />

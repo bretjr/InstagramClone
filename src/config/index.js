@@ -8,5 +8,7 @@ export default {
 
     styleConstants: {
         rowHeight: 60
-    }
+    },
+
+    baseUrl: 'https://ackountgaymgmailcom-zq2vlt.turbo360-vertex.com/api/'
 };
