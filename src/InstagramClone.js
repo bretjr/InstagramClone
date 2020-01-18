@@ -1,21 +1,42 @@
-import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { MainFeed, Login } from './components/screens';
+import React, {Component} from 'react';
+import {MainFeed, Login, Profile, Camera, Register} from './components/screens';
 // navigation imports
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createStackNavigator} from 'react-navigation-stack';
 
-// stack navigation
-const MainStack = createStackNavigator({
-    Login: Login,
-    Main: MainFeed
-});
+// bottom tab navigator
+const TabStack = createBottomTabNavigator(
+  {
+    Main: {screen: MainFeed},
+    Profile: {screen: Profile},
+    Camera: {screen: Camera},
+  },
+  {
+    initialRouteName: 'Main',
+  },
+);
 
-class InstagramClone extends Component {
+// stack navigator
+const StackNav = createStackNavigator(
+  {
+    Login: {screen: Login},
+    Register: {screen: Register},
+  },
+  {
+    initialRouteName: 'Login',
+  },
+);
 
-    render() {
-        return <MainStack />;
-    }
-}
+// switch navigator
+const SwitchStack = createSwitchNavigator(
+  {
+    Auth: {screen: StackNav},
+    Tabs: {screen: TabStack},
+  },
+  {
+    initialRouteName: 'Auth',
+  },
+);
 
-export default createAppContainer(MainStack);
+export default createAppContainer(SwitchStack);

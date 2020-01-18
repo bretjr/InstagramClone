@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Button,
-  StyleSheet,
-  TextInput,
-} from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
+import {TouchableOpacity, TextInput} from 'react-native-gesture-handler';
 import config from '../../config';
 
-class Login extends Component {
+export default class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,29 +20,27 @@ class Login extends Component {
       credentials: newCredentials,
     });
   }
-  login() {
-    let credentials = this.state.credentials;
-    credentials.email = this.state.credentials.email.toLowerCase();
-    console.log(JSON.stringify(credentials));
-    fetch(config.baseUrl + 'login', {
+  register() {
+    fetch(config.baseUrl + 'signup', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(this.state.credentials),
     })
       .then(response => response.json())
-      .then(jsonResponse => {
-        console.log(JSON.stringify(jsonResponse));
-        if (jsonResponse.confirmation === 'success') {
+      .then(responseJson => {
+        if (responseJson.confirmation === 'success') {
           this.props.navigation.navigate('Tabs');
         } else {
-          throw new Error(jsonResponse.message);
+          throw new Error({
+            message: 'Sorry something went wrong; Please try again',
+          });
         }
       })
       .catch(err => {
-        alert(err.message);
+        console.log(JSON.stringify(err));
       });
   }
   render() {
@@ -61,9 +53,8 @@ class Login extends Component {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 16}}> Login </Text>
+        <Text style={{fontSize: 16}}> Create New Profile </Text>
         <TextInput
-          autoCapitalize="none"
           value={this.state.login}
           onChangeText={text => this.updateText(text, 'email')}
           placeholder="Email"
@@ -71,7 +62,6 @@ class Login extends Component {
           style={styles.input}
         />
         <TextInput
-          autoCapitalize="none"
           value={this.state.password}
           onChangeText={text => this.updateText(text, 'password')}
           placeholder="Password"
@@ -79,13 +69,7 @@ class Login extends Component {
           style={styles.input}
           secureTextEntry
         />
-        <Button title="Login" onPress={() => this.login()} />
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Register')}
-          style={{margin: 15, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>New User?</Text>
-          <Text>Create A New Account</Text>
-        </TouchableOpacity>
+        <Button title="SignUp" onPress={() => this.register()} />
       </View>
     );
   }
@@ -99,4 +83,3 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 });
-export default Login;
