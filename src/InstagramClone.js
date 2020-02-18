@@ -35,7 +35,7 @@ const SwitchStack = createSwitchNavigator(
     Tabs: {screen: TabStack},
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'Tabs',
   },
 );
 

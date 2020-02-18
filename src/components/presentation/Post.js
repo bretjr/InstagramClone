@@ -24,7 +24,6 @@ class Post extends Component {
   }
 
   render() {
-    console.log(this.props.item);
     const imageHeight = Math.floor(this.state.screenWidth * 1.2);
     const imageSelection =
       this.props.item % 2 === 0
